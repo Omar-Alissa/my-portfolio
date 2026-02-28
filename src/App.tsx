@@ -1,12 +1,17 @@
-import './App.css'
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
-    <div className="flex h-screen items-center justify-center bg-blue-500">
-      <h1 className="text-4xl font-bold text-white underline">
-        Tailwind v4 fungerar!
-      </h1>
-    </div>
+    <Router>
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>  
+      </main>
+    </Router>
   )
 }
-export default App
+export default App;
