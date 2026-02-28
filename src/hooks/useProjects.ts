@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchGithubRepos } from "../api/github";
+import { manualProjects } from "../data/manualProjects";
 import type { GitHubRepo } from "../types/project";
 
 export const useProjects = () => {
@@ -14,7 +15,12 @@ export const useProjects = () => {
         setError(null);
         const repos = await fetchGithubRepos();
         const filtered = repos.filter((repo: GitHubRepo) => !repo.fork);
-        setProjects(filtered.slice(0, 6));
+        
+        // Combine manual projects with GitHub repos
+        const allProjects = [...manualProjects, ...filtered];
+        
+        // Show top 6 projects
+        setProjects(allProjects.slice(0, 6));
       } catch (err) {
         setError(err instanceof Error ? err.message : "An unexpected error occurred");
       } finally {
